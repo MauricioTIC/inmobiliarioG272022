@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {service} from '@loopback/core';
 import {
   Count,
@@ -16,6 +17,7 @@ import {Inmueble} from '../models';
 import {InmuebleRepository} from '../repositories';
 import {InmuebleService} from '../services/inmueble.service';
 
+//@authenticate("admin")
 export class InmuebleController {
   constructor(
     @repository(InmuebleRepository)
@@ -128,6 +130,7 @@ export class InmuebleController {
     return this.inmuebleRepository.count(where);
   }
 
+  @authenticate.skip()
   @get('/inmuebles')
   @response(200, {
     description: 'Array of Inmueble model instances',
